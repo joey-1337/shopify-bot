@@ -7,21 +7,25 @@ import requests
 
 url = "https://sandbox.privacy.com"
 api_key = input("input privacy API-key")
-headers = {'Authorization': 'api-key ' + api_key,}
+headers = {'Authorization': 'api-key' + api_key,}
 
 
-def _response_handler(response):
+def _response_handler (response):
     response = response.json()
 
     if "message" in response:
         raise Exception(response["message"])
     else: 
-        return response
+        return response 
 
 
 def list_cards (): return _response_handler(requests.get(url + '/v1/card', headers=headers))
-def list_transactions (approval_status): return _response_handler(requests.get(url + ))
 
+def list_transactions (approval_status=None): 
+    if approval_status:
+        return _response_handler(requests.get(url + "v1/transaction/"))
+    else:
+        return _response_handler(requests.get(url + "v1/transaction/" + approval_status))
 
 def create_card (type, memo=None, funding_token=None, pin=None, spend_limit_ammount=None, spend_limit_duration=None, state=None,shipping_address=None):
    
@@ -80,6 +84,7 @@ def update_card(card_token, state=None,funding_token=None,memo=None,pin=None,spe
 
     return _response_handler(requests.put(url + "/v1/card", json=payload, headers=headers))
 
+
 def reissue_card (card_token, shipping_address=None):
 
     payload = {"card_token":card_token}
@@ -88,6 +93,7 @@ def reissue_card (card_token, shipping_address=None):
         payload = dict(payload, **{"shipping_address":shipping_address})
     
     return _response_handler(requests.post(url + "/v1/card/reissue", json=payload, headers=headers))
+
 
 def list_funding_accounts (source=None):
 
