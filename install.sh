@@ -5,8 +5,13 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+if ! command -v pip3 &> /dev/null
+then
+    echo "please install pip3"
+    exit
+fi
+
 pip3 install requests
-pip3 install json
 pip3 install py-mini-racer
 pip3 install lxml
 
