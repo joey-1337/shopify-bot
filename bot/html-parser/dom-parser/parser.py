@@ -35,7 +35,7 @@ def generate_dom_tree (session, url): #solely for testing purposes
                         broken = True
                         break
                     uncle = parent.getnext()
-                    if (broken): break  
-                    node = uncle
-                    print node, "", node.text 
+                if (broken): break  
+                node = uncle
+                print node, "", node.text 
 
