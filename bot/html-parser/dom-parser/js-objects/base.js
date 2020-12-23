@@ -5,5 +5,3 @@ class HTMLCollection extends Array {
 class Node extends event {}
 class document extends Node {}
 class window {}
-
-

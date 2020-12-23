@@ -5,6 +5,12 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+if ! command -v python &> /dev/null
+then
+    echo "[!] please install python onto your system"
+    exit
+fi
+
 if ! command -v pip3 &> /dev/null
 then
     echo "[!] please install pip3"
