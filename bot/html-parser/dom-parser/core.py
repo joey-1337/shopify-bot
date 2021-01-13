@@ -3,7 +3,7 @@
 import json
 import requests
 from lxml import etree
-import js2py
+from py_mini_racer import py_mini_racer
 from io import StringIO
 import multiprocessing
 
