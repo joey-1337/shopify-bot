@@ -86,12 +86,13 @@ echo "[*] modifying py_mini_racer to support require() statements"
 
 REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.CDLL('"$REPO_DIR"'/build/_v8.so")#g'
 sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/py_mini_racer.py
+cd ..
+rm -r PyMiniRacer-0.1.17 #it's really unnecessary to keep the rest of the repo
 
 echo "[*] building v8 shared objects"
 
 echo "[*] getting libv8 developer files from ruby gem (don't ask)"
 
-cd ..
 mkdir libv8-$V8_VERSION
 cd libv8-$V8_VERSION
 
@@ -123,8 +124,8 @@ g++ \     #the file gets linked against half of my computer's file system
     -g\   #I'd honestly be more surprised if there was a linker error than not
     -O2\
     -I.\
-    -I ../PyMiniRacer-0.1.17/vendor/v8/include\
-    -I ./PyMiniRacer-0.1.17/vendor/v8\
+    -I ../libv8-$V8_VERSION/vendor/v8/include\
+    -I ./libv8-$V8_VERSION/vendor/v8\
     racer_plus.cc\
     -o _v8.so\
     -Wl,--start-group libv8pp.a ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_monolith.a ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_libplatform.a  ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_libbase.a \
