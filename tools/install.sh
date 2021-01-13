@@ -114,7 +114,7 @@ echo "[*] replacing makefile for v8pp"
 #like I did for the mini_racer dependancy, this will have to do. 
 
 rm Makefile
-unzip $REPO_dir/Makefile-v8pp.zip
+unzip $REPO_dir/tools/Makefile-v8pp.zip
 make lib
 
 cp $REPO_DIR/bot/html-parser/dom-parser/js-objects/racer_plus.cc racer_plus.cc
