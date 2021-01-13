@@ -12,6 +12,9 @@
 //not using a namespace to make it easier to differentiate
 //v8pp and v8 objects
 
+//TODO fix the error handling, doesn't crash, but the error
+//messages don't print right.
+
 struct ContextInfo {
 
     v8::Isolate * isolate_ptr;
@@ -248,7 +251,20 @@ err:
 
 static BinaryValue* MiniRacer_eval_context(ContextInfo* ctx_info, char *utf_str, int str_len)
 {
+    v8::TryCatch try_catch(ctx_info->isolate_ptr);
     v8::Local<v8::Value> tmp = ctx_info->ctx_ptr->run_script(utf_str);
+
+    if (try_catch.HasCaught())
+    {
+        std::string msg = v8pp::from_v8<std::string>(ctx_info->isolate_ptr, 
+                try_catch.Exception()->ToString(ctx_info->isolate_ptr->GetCurrentContext()).ToLocalChecked());
+
+        BinaryValue* res = new (xalloc(res)) BinaryValue();
+        res->type = type_parse_exception;
+        res->str_val =  const_cast<char*> (msg.c_str());
+        res -> len = strlen(msg.c_str());
+        return res;
+    }
     auto res = convert_v8_to_binary(ctx_info, tmp);
     return res;
 }
