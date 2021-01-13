@@ -22,6 +22,7 @@ fi
 cd ..
 
 mkdir build
+cp tools/reinstall.sh build
 
 set -e
 
@@ -32,11 +33,6 @@ V8_VERSION=6.7.288.46.1
 URL=https://rubygems.org/downloads/libv8-$V8_VERSION-x86_64-linux.gem
 
 echo "please note that until further notice... this script will take a very long time to run... furthermore, it will take up a lot of disk space (~4gb). Also, please make sure that g++ is up to date, otherwise it may be incapable of compiling some required v8 code."
-
-if [ "$EUID" -ne 0 ]
-then echo "[!] Please run as root"
-  exit
-fi
 
 if ! command -v python &> /dev/null
 then
@@ -53,6 +49,12 @@ fi
 if ! command -v git &> /dev/null
 then 
     echo "[!] please install git onto your system"
+    exit
+fi
+
+if ! command -v g++ &> /dev/null
+then
+    echo "[!] please install g++ onto your system"
     exit
 fi
 
