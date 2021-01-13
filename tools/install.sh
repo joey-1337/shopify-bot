@@ -106,8 +106,6 @@ echo "[*] building C++ dependancies"
 cd ..
 cd v8pp-1.6.0
 
-echo ""
-
 echo "[*] replacing makefile for v8pp"
 
 #I don't remember which precise changes I made to the Makefile in order to get the 
@@ -139,3 +137,4 @@ g++ \     #the file gets linked against half of my computer's file system
     -fPIC
 
 cp _v8.so $REPO_DIR/build
+cd $REPO_DIR
