@@ -23,7 +23,6 @@ cd ..
 
 mkdir build
 
-set -x
 set -e
 
 REPO_DIR=$(pwd)
@@ -106,24 +105,44 @@ echo "[*] building C++ dependancies"
 cd ..
 cd v8pp-1.6.0
 
-echo "[*] replacing makefile for v8pp"
+echo "[*] altering makefile for v8pp"
 
 #I don't remember which precise changes I made to the Makefile in order to get the 
 #lib to properly compile so until I figure that out and implement a sed-like solution
 #like I did for the mini_racer dependancy, this will have to do. 
 
+#TODO make a function or something, idk...
+
+LINE=2
+DIFF="CXXFLAGS += -pthread -Wall -Wextra -std=c++11 -fPIC -fno-rtti -DV8PP_ISOLATE_DATA_SLOT=0 -g"
+AWK_TEXT='{ if (NR == '"$LINE"') print "'"$DIFF"'"; else print $0}'
+awk "$AWK_TEXT" Makefile > awk1.out
 rm Makefile
-unzip $REPO_DIR/tools/Makefile-v8pp.zip
+
+LINE=7
+DIFF="INCLUDES = -I ../libv8-$V8_VERSION/vendor/v8/include -I ../libv8-$V8_VERSION/vendor/v8 -I."
+AWK_TEXT='{ if (NR == '"$LINE"') print "'"$DIFF"'"; else print $0}'
+awk "$AWK_TEXT" awk1.out > awk2.out
+rm awk1.out
+
+LINE=8
+DIFF="LIBS = -ldl -lrt  -licui18n -licuuc -L. -Wl,-whole-archive -lv8pp -ldl -lpthread -Wl,--start-group ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_monolith.a ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_libplatform.a  ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_libbase.a -Wl,--end-group"
+AWK_TEXT='{ if (NR == '"$LINE"') print "'"$DIFF"'"; else print $0}'
+awk "$AWK_TEXT" awk2.out > Makefile
+rm awk2.out
+
 make lib
 
-cp $REPO_DIR/bot/html-parser/dom-parser/js-objects/racer_plus.cc racer_plus.cc
+cp $REPO_DIR/bot/html-parser/dom-parser/js-objects/racer_plus.cc .
 
-g++ \     #the file gets linked against half of my computer's file system
-    -g\   #I'd honestly be more surprised if there was a linker error than not
-    -O2\
+#the file gets linked against half of my computer's file system
+#I'd honestly be more surprised if there was a linker error than not
+
+g++ \
+    -g -O2\
     -I.\
     -I ../libv8-$V8_VERSION/vendor/v8/include\
-    -I ./libv8-$V8_VERSION/vendor/v8\
+    -I ../libv8-$V8_VERSION/vendor/v8\
     racer_plus.cc\
     -o _v8.so\
     -Wl,--start-group libv8pp.a ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_monolith.a ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_libplatform.a  ../libv8-$V8_VERSION/vendor/v8/out.gn/libv8/obj/libv8_libbase.a \
@@ -134,6 +153,7 @@ g++ \     #the file gets linked against half of my computer's file system
     -lrt \
     -pthread \
     -shared \
+    -fno-rtti \
     -fPIC
 
 cp _v8.so $REPO_DIR/build
