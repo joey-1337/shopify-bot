@@ -62,7 +62,7 @@ echo "[*] getting C++ dependancies"
 cd ..
 wget https://github.com/pmed/v8pp/archive/v1.6.0.zip
 unzip v1.6.0.zip
-
+rm v1.6.0.zip
 
 echo "[*] installing python dependancies"
 
