@@ -9,6 +9,7 @@
 if [ "$EUID" -ne 0 ]
 then 
     echo "[!] please run as root"
+    exit
 fi
 
 echo -e "this script will download and create multiple files/folders in this repos parent folder so you probably don't want to run this script on your Desktop folder would you like to install in this given location [y/N]:\c"
