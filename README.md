@@ -27,6 +27,7 @@ __python__:
   - [py_mini_racer](https://github.com/sqreen/PyMiniRacer)
   - [lxml](https://lxml.de/)
   - [requests](https://requests.readthedocs.io/en/master/)
+  
 __c++__:
   - [v8pp](https://github.com/pmed/v8pp)
-  - v8 [(binaries)](https://rubygems.org/gems/libv8/) [homepage](https://v8.dev/)
+  - v8 [(binaries)](https://rubygems.org/gems/libv8/), [(homepage)](https://v8.dev/)
