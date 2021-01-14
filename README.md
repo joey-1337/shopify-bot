@@ -5,7 +5,7 @@ not even shopify based anymore... smh
 
 ## Installation
 
-Installation have been tested on Arch Linux 2021.01.01-amd64 and Debian 10.7.0-amd64, MacOS and Windows support should be coming in the foresable future... everything should probably work fine on Mac if you have installed the required dependancies. The code should *theoretically* work on Windows if you compile it manually, but I have not tried it yet. Support for CPU architectures other than amd64 is not planned. Takes up ~ 90mb of space once installed, the install script should not take very long to execute.
+Installation has been tested on Arch Linux 2021.01.01-amd64 and Debian 10.7.0-amd64, MacOS and Windows support should be coming in the foresable future... everything should probably work fine on Mac if you have installed the required dependancies. The code should *theoretically* work on Windows if you compile it manually, but I have not tried it yet. Support for CPU architectures other than amd64 is not planned. Takes up ~ 90mb of space once installed, the install script should not take very long to execute.
 
 __requirements to run install.sh__:
   - bash
