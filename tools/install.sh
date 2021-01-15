@@ -139,7 +139,7 @@ rm awk2.out
 
 make lib
 
-cp $REPO_DIR/bot/dom-parser/js-objects/racer_plus.cc .
+cp $REPO_DIR/bot/dom_parser/js-objects/racer_plus.cc .
 
 #the file gets linked against half of my computer's file system
 #I'd honestly be more surprised if there was a linker error than not
