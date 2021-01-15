@@ -88,7 +88,20 @@ cd PyMiniRacer-0.1.17
 echo "[*] modifying py_mini_racer to support require() statements"
 
 REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.CDLL("'"$REPO_DIR"'/build/bot/dom_parser/_v8.so")#g'
-sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/bot/dom_parser/py_mini_racer.py
+sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/bot/dom_parser/a.out
+
+LINE=14
+DIFF='"""'
+AWK_TEXT='{ if (NR == '"$LINE"') print "'"$DIFF"'"; else print $0}'
+awk "$AWK_TEXT" $REPO_DIR/build/bot/dom_parser/a.out > awk1.out
+rm $REPO_DIR/build/bot/dom_parser/a.out
+
+LINE=25
+AWK_TEXT='{ if (NR == '"$LINE"') print "'"$DIFF"'"; else print $0}'
+awk "$AWK_TEXT" $REPO_DIR/build/bot/dom_parser/awk1.out > $REPO_DIR/build/bot/dom_parser/py_mini_racer.py
+rm $REPO_DIR/build/bot/dom_parser/awk1.out
+
+
 cd ..
 rm -r PyMiniRacer-0.1.17 #it's really unnecessary to keep the rest of the repo
 
