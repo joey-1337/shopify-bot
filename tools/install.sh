@@ -22,7 +22,7 @@ fi
 
 cd ..
 mkdir build
-mv bot/bot-run.py build
+cp bot/bot-run.py build
 cp -r bot/ build/
 cp tools/reinstall.sh build
 
@@ -87,7 +87,7 @@ cd PyMiniRacer-0.1.17
 
 echo "[*] modifying py_mini_racer to support require() statements"
 
-REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.CDLL("'"$REPO_DIR"'/build/_v8.so")#g'
+REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.CDLL("'"$REPO_DIR"'/build/bot/dom_parser/_v8.so")'
 sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/bot/dom_parser/py_mini_racer.py
 cd ..
 rm -r PyMiniRacer-0.1.17 #it's really unnecessary to keep the rest of the repo
