@@ -1,8 +1,8 @@
-from dom_parser import core as c
+import core as c
 import requests
 from lxml import etree
 import random
-import py_mini_racerr
+import py_mini_racer
 
 def buy_product ():
      prod_name = raw_input("enter product name: ")
@@ -18,8 +18,8 @@ def buy_product ():
      'Connection': 'keep-alive',
     'Upgrade-Insecure-Requests': '1',
      }
-     session = second_page(headers, requests.session(), url, parser, py_mini_racerr.MiniRacer(), prod_name)
-     checkout(headers, session, parser, py_mini_racerr.MiniRacer())
+     session = second_page(headers, requests.session(), url, parser, py_mini_racer.MiniRacer(), prod_name)
+     checkout(headers, session, parser, py_mini_racer.MiniRacer())
 
 def checkout(base_headers, session, parser, ctx):
      res =  c.get_root_node(session, "http://test.ccds.club/cart.php?a=view", parser, base_headers, referer="http://test.ccds.club/index.php?rp=/store/the-best-products")

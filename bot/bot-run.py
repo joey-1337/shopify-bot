@@ -1,5 +1,8 @@
 #! /usr/bin/python
-import bot
+try:
+    from bot import master
+except ImportError: 
+    import master
 
 while True:
-    bot.bot()
+    master.bot()

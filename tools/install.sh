@@ -21,8 +21,8 @@ then
 fi
 
 cd ..
-
 mkdir build
+mv bot/bot-run.py
 cp tools/reinstall.sh build
 
 set -e
@@ -87,12 +87,10 @@ cd PyMiniRacer-0.1.17
 echo "[*] modifying py_mini_racer to support require() statements"
 
 REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.CDLL("'"$REPO_DIR"'/build/_v8.so")#g'
-sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/py_mini_racer.py
+sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/bot/dom_parser/py_mini_racer.py
 cd ..
 rm -r PyMiniRacer-0.1.17 #it's really unnecessary to keep the rest of the repo
-cp $REPO_DIR/build/py_mini_racer.py $REPO_DIR/bot/py_mini_racerr.py
 
-touch $REPO_DIR/bot/_v8.so
 
 echo "[*] building v8 shared objects"
 
@@ -162,7 +160,7 @@ g++ \
     -fno-rtti \
     -fPIC
 
-cp _v8.so $REPO_DIR/build
+cp _v8.so $REPO_DIR/build/bot/dom_parser
 
 cd $REPO_DIR/..
 chown -R $(logname) $(pwd)
