@@ -90,6 +90,7 @@ REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.C
 sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/py_mini_racer.py
 cd ..
 rm -r PyMiniRacer-0.1.17 #it's really unnecessary to keep the rest of the repo
+cp $REPO_DIR/build/py_mini_racer.py $REPO_DIR/bot/py_mini_racerr.py
 
 echo "[*] building v8 shared objects"
 
