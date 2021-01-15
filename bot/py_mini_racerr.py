@@ -81,7 +81,7 @@ def _fetch_ext_handle():
     if _ext_handle:
         return _ext_handle
 
-    _ext_handle = ctypes.CDLL("/home/joey/Desktop/repos/shopify-bot/build/_v8.so")
+    _ext_handle = ctypes.CDLL("/home/joey/Documents/repos/shopify-bot/build/_v8.so")
 
     _ext_handle.mr_init_context.restype = ctypes.c_void_p
 

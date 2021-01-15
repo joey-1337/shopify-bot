@@ -92,6 +92,8 @@ cd ..
 rm -r PyMiniRacer-0.1.17 #it's really unnecessary to keep the rest of the repo
 cp $REPO_DIR/build/py_mini_racer.py $REPO_DIR/bot/py_mini_racerr.py
 
+touch $REPO_DIR/bot/_v8.so
+
 echo "[*] building v8 shared objects"
 
 echo "[*] getting libv8 developer files from ruby gem (don't ask)"
