@@ -91,7 +91,7 @@ REPLACE_TEXT='s#_ext_handle = ctypes.CDLL(EXTENSION_PATH)#_ext_handle = ctypes.C
 sed "$REPLACE_TEXT" py_mini_racer/py_mini_racer.py > $REPO_DIR/build/bot/dom_parser/a.out
 
 LINE=14
-DIFF='"""'
+DIFF='\042\042\042'
 AWK_TEXT="{ if (NR == "$LINE") print '$DIFF'; else print $0}"
 awk "$AWK_TEXT" $REPO_DIR/build/bot/dom_parser/a.out > awk1.out
 rm $REPO_DIR/build/bot/dom_parser/a.out
