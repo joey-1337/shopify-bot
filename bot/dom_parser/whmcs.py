@@ -4,8 +4,10 @@ from lxml import etree
 import random
 import py_mini_racer
 
-def buy_product ():
-     prod_name = raw_input("enter product name: ")
+def get_info (): return ["product name"]
+
+def buy_product (prod_info):
+     prod_name = prod_info['product name']
      url = "http://test.ccds.club/"
      parser = etree.HTMLParser()
      session = requests.session()
@@ -18,7 +20,7 @@ def buy_product ():
      'Connection': 'keep-alive',
     'Upgrade-Insecure-Requests': '1',
      }
-     session = second_page(headers, requests.session(), url, parser, py_mini_racer.MiniRacer(), prod_name)
+     session = add_to_cart(headers, requests.session(), url, parser, py_mini_racer.MiniRacer(), prod_name)
      checkout(headers, session, parser, py_mini_racer.MiniRacer())
 
 def checkout(base_headers, session, parser, ctx):
@@ -65,9 +67,10 @@ def checkout(base_headers, session, parser, ctx):
      headers = dict(base_headers, **{"host":c.get_host(url)})
      headers = dict(headers, **{'Referer': 'http://test.ccds.club/cart.php?a=checkout'})
      r = session.post("http://test.ccds.club/cart.php",headers=headers, params=params, cookies=session.cookies, data=data)
-     return r
+     print "checkout returned " + r.status_code + " status code."
+     return r.status_code
 
-def second_page(base_headers, session, url, parser, ctx, prod_name):
+def add_to_cart(base_headers, session, url, parser, ctx, prod_name):
      headers = dict(base_headers, **{"host":c.get_host(url)})
      headers = dict(headers, **{"referer":"http://test.ccds.club/index.php"})
      session.get("http://test.ccds.club/cart.php")
@@ -94,3 +97,5 @@ def second_page(base_headers, session, url, parser, ctx, prod_name):
      session.post('http://test.ccds.club/cart.php', headers=headers, params=params, cookies=session.cookies, data=data)
      return session
 
+def moniter ():
+    raise NotImplementedError 
