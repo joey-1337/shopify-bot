@@ -6,7 +6,7 @@ master_dict = {'http://test.ccds.club':dom_parser.whmcs}
 
 def purchase ():
      domain = raw_input("enter website name: ")
-     run_wrapper(master[domain])
+     run_wrapper(master_dict[domain])
 
 
 def run_wrapper(self):
@@ -16,6 +16,6 @@ def run_wrapper(self):
         prod_info = dict(prod_info, **{item:res})
     thread_num = raw_input("enter the amount of threads you would like to run: ")
     threads = []
-    for x in range(thread_num):
-        threads += threading.Thread(target=self.buy_product, args=(prod_info,))
+    for x in range(int(thread_num)):
+        threads += [threading.Thread(target=self.buy_product, args=(prod_info,))]
         threads[-1].start()

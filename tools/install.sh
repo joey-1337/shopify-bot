@@ -24,6 +24,7 @@ cd ..
 mkdir build
 cp bot/bot-run.py build
 cp -r bot/ build/
+rm build/bot/bot-run.py
 cp tools/reinstall.sh build
 
 set -e
