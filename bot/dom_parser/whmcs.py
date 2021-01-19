@@ -67,7 +67,7 @@ def checkout(base_headers, session, parser, ctx):
      headers = dict(base_headers, **{"host":c.get_host(url)})
      headers = dict(headers, **{'Referer': 'http://test.ccds.club/cart.php?a=checkout'})
      r = session.post("http://test.ccds.club/cart.php",headers=headers, params=params, cookies=session.cookies, data=data)
-     print "checkout returned " + r.status_code + " status code."
+     print "checkout returned " + str(r.status_code) + " status code."
      return r.status_code
 
 def add_to_cart(base_headers, session, url, parser, ctx, prod_name):

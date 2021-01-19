@@ -19,3 +19,10 @@ def run_wrapper(self):
     for x in range(int(thread_num)):
         threads += [threading.Thread(target=self.buy_product, args=(prod_info,))]
         threads[-1].start()
+    isRunning = True
+    
+    while (isRunning):
+        isRunning = False
+        for thread in threads:
+            if (thread.is_alive()):
+                isRunning = True
