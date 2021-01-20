@@ -1,5 +1,5 @@
 # shopify-bot
-not even shopify based anymore... smh
+not even shopify based anymore (or even remotely done)... smh
 
 
 
